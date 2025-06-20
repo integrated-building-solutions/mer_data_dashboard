@@ -272,33 +272,6 @@ def process_df(df):
   fig.update_layout(xaxis_title="Date", yaxis_title=unit)
   st.plotly_chart(fig, use_container_width=True)
 
-names = ["Admin", "K. Chan", "J. Cerezo"]
-usernames = ["admin", "kchan", "jcerezo"]
-file_path = Path(__file__).parent / "hashed_pw.pkl"
-with file_path.open("rb") as file:
-  hashed_passwords = pickle.load(file)
-
-credentials = {
-    "usernames": {
-        usernames[i]: {
-            "name": names[i],
-            "password": hashed_passwords[i]
-        } for i in range(len(usernames))
-    }
-}
-
-authenticator = stauth.Authenticate(credentials, name="data_dashboard", key="pwd", cookie_expiry_days=30)
-authenticator.login("sidebar")
-name = st.session_state["name"]
-username = st.session_state["username"]
-authentication_status = st.session_state["authentication_status"]
-
-if authentication_status == None:
-  st.warning("Please enter username and password")
-if authentication_status == False:
-  st.error("Username/password is incorrect")
-
-if authentication_status:
   st.markdown("""
     <style>
         .block-container {
@@ -306,11 +279,6 @@ if authentication_status:
         }
     </style>
 """, unsafe_allow_html=True)
-  
-  # Create columns to push the logout button to the right
-  # col1, col2, col3 = st.columns([6, 1, 1])
-  # with col3:
-  authenticator.logout("Logout", "sidebar")  # Use a valid string label
 
   st.set_page_config(layout="wide")
   
