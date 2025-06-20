@@ -268,19 +268,19 @@ def process_df(df):
   fig.update_layout(xaxis_title="Date", yaxis_title=unit)
   st.plotly_chart(fig, use_container_width=True)
 
-  st.markdown("""
-    <style>
-        .block-container {
-            padding-top: 1rem;
-        }
-    </style>
+st.markdown("""
+  <style>
+      .block-container {
+          padding-top: 1rem;
+      }
+  </style>
 """, unsafe_allow_html=True)
 
-  st.set_page_config(layout="wide")
-  
-  dataFile = st.file_uploader("Upload CSV Data file")
-  
-  if dataFile is not None:
-    # skip 2nd line and the last line
-    df = pd.read_csv(dataFile, skiprows=[1], header=0, skipfooter=1, index_col='time', parse_dates=['time'], engine='python')
-    process_df(df)
+st.set_page_config(layout="wide")
+
+dataFile = st.file_uploader("Upload CSV Data file")
+
+if dataFile is not None:
+  # skip 2nd line and the last line
+  df = pd.read_csv(dataFile, skiprows=[1], header=0, skipfooter=1, index_col='time', parse_dates=['time'], engine='python')
+  process_df(df)
